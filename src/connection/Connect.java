@@ -84,7 +84,6 @@ public class Connect {
                     + " doc_filename, doc_status, doc_type, creation, user_id, uniqueid) " 
                     + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
              
-            // TODO: complete this code with neccesary data
             pst.setInt(1, docFile.getRepId());
             pst.setString(2, docFile.getDocDesc());
             pst.setString(3, docFile.getDocPath());

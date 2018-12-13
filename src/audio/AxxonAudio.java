@@ -1,18 +1,23 @@
 package audio;
 
-import connection.Connect;
-import static connection.Connect.saveAudio;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
+
 import java.text.ParseException;
-import java.util.Date;
 import javax.sound.sampled.*;
-import model.DocFile;
+
+import java.io.*;
+import java.util.Date;
+
 import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import connection.Connect;
+import static connection.Connect.saveAudio;
+
+import model.DocFile;
 
 /**
  * AxxonAudio class. 
@@ -30,7 +35,23 @@ public class AxxonAudio extends JFrame{
         private final Timestamp dateTime;
         
         public static void main(String args[]) throws IOException, UnsupportedAudioFileException, LineUnavailableException, ParseException{
+            
+            // TODO: Colocar aqui los argumentos recibidos por la app
+            int cont;
+            int i;
+            for (i = 0; i < args.length; i++) {
+                cont = i +1;
+                System.out.print("Argumento nro:" + cont + " " + args[i]+ " ");
+            }
+            System.out.println("LISTO");
+            
+            // TODO: Eliminar - Prueba de Jframe para la maqueta del reproductor
+            JframeAudio f = new JframeAudio(); 
+            f.setBackground(Color.DARK_GRAY);
+            f.setVisible (true); 
+            
             AxxonAudio axxonAudio = new AxxonAudio();
+            
         }//end main
 
         // Constructor
@@ -86,7 +107,6 @@ public class AxxonAudio extends JFrame{
             getContentPane().add(playBtn);
 
             saveBtn.addActionListener((ActionEvent e) -> {
-                // TODO: Crear action listener una vez todo funcione
                 // saved and write the register on the db
                 //Connect connect = new Connect();
                 saveAndExit();
@@ -95,6 +115,8 @@ public class AxxonAudio extends JFrame{
             //end ActionListener
             );//end addActionListener()
             getContentPane().add(saveBtn);
+            
+            getContentPane().setBackground(Color.DARK_GRAY);
             
             getContentPane().setLayout(new FlowLayout());
             setTitle("Dictáfono");
