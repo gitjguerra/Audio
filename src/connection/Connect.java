@@ -5,12 +5,20 @@
  */
 package connection;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.DocFile;
+import util.Constants;
  
 /**
  * Basic connection to PostgreSQL database. 
@@ -19,31 +27,62 @@ import model.DocFile;
  */
 public class Connect {
  
-    // TODO: where read a data, maybe .INI ???
-    static String driver = "org.postgresql.Driver";
-    static String ruta = "jdbc:postgresql://172.16.1.114:5432/axxon";
-    static String user = "axxon";
-    static String password = "Medimagen!";
+    private String driver = null;
+    private String path = null;
+    private String user = null;
+    private String password = null;    
+    private Properties prop = new Properties();
+    private InputStream input = null;        
 
+    public Connect() {
+        try {
+            
+            String cwd = System.getProperty("user.dir");        
+            input = new FileInputStream(cwd + Constants.getPROPERTIES_FILE());
+
+            // load a properties file
+            prop.load(input);
+
+            // get the property value and print it out
+            driver = prop.getProperty("driver");
+            path = prop.getProperty("path");
+            user = prop.getProperty("user");
+            password = prop.getProperty("password");
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Connect.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Connect.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+                if (input != null) {
+                        try {
+                           input.close();
+                        } catch (IOException e) {
+                            System.out.println("Error al intentar leer los parametros del archivo config.properties " + e);
+                        }
+                }
+        }            
+    }
+        
     /**
      * We establish the connection with the database <b>customerdb</b>.
      * @return connection
      */
     public Connection connectDb() {
+        
         try {
             // Register the PostgreSQL driver
-            try { 
-                Class.forName(driver);
-            } catch (ClassNotFoundException ex) {
-                System.out.println("Error al registrar el driver de PostgreSQL: " + ex);
-            }
+            Class.forName(driver);
+
             Connection connection = null;
-            connection = DriverManager.getConnection(ruta, user, password);
+            connection = DriverManager.getConnection(path, user, password);
             return connection;
-            
+
         } catch (java.sql.SQLException sqle) {
             System.out.println("Error al conectar con la base de datos de PostgreSQL " + sqle);
-        }
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Error al registrar el driver de PostgreSQL: " + ex);
+        }            
         return null;
     }
  

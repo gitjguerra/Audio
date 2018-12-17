@@ -265,7 +265,7 @@ public class AxxonAudio extends JFrame{
             docFile.setDoceuId(""); // campo vacio en la BD
             docFile.setDocDesc("D_EXAMENES"); // de donde sale este dato ???   como parametro del main ???
             docFile.setDocPath("c:\\Temp\\"); // ../../dms/data/SND + fecha (año + mes + dia)
-            docFile.setDocFileName("D_EXAMENES.5.2018.07.19.0.SND.wav"); // D_EXAMENES.5.2018.07.19.0.SND.mp3 - cambiar formato de wav a mp3
+            docFile.setDocFileName("D_EXAMENES.5.2018.07.19.0.SND.mp3"); // D_EXAMENES.5.2018.07.19.0.SND.mp3 - cambiar formato de wav a mp3
             docFile.setDocStatus(0);
             docFile.setDocType("SND");
             docFile.setCreation(dateTime);
@@ -274,6 +274,7 @@ public class AxxonAudio extends JFrame{
             docFile.setPlaceId(1);
             docFile.setUniqueId("5b8841a6633ad_6"); // Este campo que es ???
 
+            // TODO:  DEBE guardar luego del cconvert
             // Write file
             AudioSystem.write(
                     audioInputStream
