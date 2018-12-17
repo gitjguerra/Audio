@@ -303,12 +303,6 @@ public class AxxonAudio extends JFrame{
             }//end catch
     }
 
-    public static File convertWAVtoMP3(File wav){
-        File temp = null;
-        
-        return temp;
-    }
-
     //Inner class to capture data from microphone
     class CaptureThread extends Thread{
         //An arbitrary-size temporary holding buffer
